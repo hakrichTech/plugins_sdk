@@ -4,7 +4,6 @@ namespace Library;
  *
  */
  use \Library\Application as app;
- use \Library\Details as DataAnalyse;
  use \Library\ApplicationComponents as b;
  use HTML as HT;
 
