@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<routes>
-  <route url="/login" module="Login" action="signin" vars="" id="" value=""/>
-
-</routes>

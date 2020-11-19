@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<routes>
-  <route url="/ajax/search(.+)" module="Search" action="Searching" vars="" id="" value=""/>
-</routes>

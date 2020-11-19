@@ -10,7 +10,7 @@
     ],
     "autoload": {
       "psr-4": {
-        "Library\\": "Application"
+        "Library\\": "Application/Library"
       }
     },
     "require": {}
