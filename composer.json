@@ -1,5 +1,5 @@
 {
-    "name": "root/plugins_sdk",
+    "name": "plugins_sdk",
     "type": "library",
     "license": "MIT",
     "authors": [
