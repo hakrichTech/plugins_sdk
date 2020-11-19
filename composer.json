@@ -8,5 +8,10 @@
             "email": "hakeemshamavu@hakrichapp.tech"
         }
     ],
+    "autoload": {
+      "psr-4": {
+        "Library\\": "Application"
+      }
+    },
     "require": {}
 }
