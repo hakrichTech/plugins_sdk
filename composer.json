@@ -1,0 +1,12 @@
+{
+    "name": "root/plugins_sdk",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hakeem Rasheed",
+            "email": "hakeemshamavu@hakrichapp.tech"
+        }
+    ],
+    "require": {}
+}
