@@ -4,17 +4,31 @@ namespace Library;
 /**
  *
  */
+
  use \Library\HTTP as http;
  use \Library\Router\Route as PATH_;
+
+ $dir    = __DIR__.'/../../../../../'.$_ENV['APP_CONFIG_SIDE_URL'].$_ENV['APP_CONFIG_SIDE'].'/Modules';
+
+ function include_Dir($x)
+ {
+   $files = scandir($x);
+   foreach ($files as $file) {
+     if ($file!='.' && $file!="..") {
+       include $x.'/'.$file;
+     }
+   }
+ }
+
+ include_Dir($dir);
+
 
  abstract class Application
  {
      protected static $httpRequest;
      protected static $httpResponse;
      protected static $name;
-     public static $url="http://hakrichapp/";
-     // public static $url="http://10.42.0.1/";
-     // public static $url="https://www.hakrichapp.tech/";
+     public static $url;
      protected static $out_put='f';
      private static $router;
      private static $app;
@@ -27,9 +41,31 @@ namespace Library;
 
      public function __construct()
      {
+        switch ($_ENV['APP_HOST_RUN']) {
+          case 'localhost':
+              switch ($_ENV['APP_LOCALHOST_DEVICE']) {
+                case 'computer':
+                    self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
+                  break;
+                case 'mobile':
+                    self::$url = $_ENV['APP_LOCALHOST_MOBILE'];
+                  break;
+                default:
+                  self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
+                  break;
+              }
+            break;
+         case 'server':
+             self::$url = $_ENV['APP_SERVER_URL'];
+           break;
+          default:
+            self::$url = $_ENV['APP_SERVER_URL'];
+            break;
+        }
+
          self::$name=' ';
          self::$app=$this;
-         self::$device=new DeviceDetector();
+         self::$device=new \DeviceDetector();
          self::$user=new \Library\User\User($this);
          self::$httpRequest=new http\HTTPRequest($this);
          self::$outPut=new \Library\OutPut($this);
@@ -49,7 +85,7 @@ namespace Library;
      {
 
 
-         $routes=simplexml_load_file(__DIR__.'/../../../../../../App/bin/'.self::NAME().'/Config/siteMap.xml')->route;
+         $routes=simplexml_load_file(__DIR__.'/../../../../../../'.$_ENV['APP_CONFIG_SIDE_URL'].self::NAME().'/Config/siteMap.xml')->route;
          $vars=array();
          $vls=array();
 
@@ -85,7 +121,7 @@ namespace Library;
                  $_GET['code']=$code;
              }
              $_GET = array_merge($_GET, self::$path::VARS_NAMES());
-             $controllerClass = '\\Hakrichapp\\'.self::NAME().'\\Modules\\'.ucfirst(self::$path::MODULE()).'\\'.ucfirst(self::$path::MODULE()).'Controller';
+             $controllerClass = '\\'.ucfirst(self::$path::MODULE()).'Controller';
              return  new $controllerClass(self::$app, self::$path::MODULE(), self::$path::ACTION());
          } else {
              self::HTTP_RESPONSE()::REDIRECT_404();
