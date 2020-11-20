@@ -16,7 +16,7 @@ class Setup extends App
     self::$name = $side;
   }
 
-  public function RUN()
+  public static function RUN()
   {
     if (self::$name == "Ajax") {
 
@@ -27,7 +27,7 @@ class Setup extends App
       self::$out_put= self::$httpResponse::GET_OUTPUT();
       echo self::$out_put;
 
-      
+
     }else {
       $controller = self::GET_CONTROLLER();
       $controller::EXECUTE();
