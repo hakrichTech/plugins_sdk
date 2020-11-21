@@ -8,7 +8,7 @@ namespace Library;
  use \Library\HTTP as http;
  use \Library\Router\Route as PATH_;
 
- $dir    = __DIR__.'/../../../../../App/bin/User/Modules';
+ $dir    = __DIR__.'/../../../../../'.$_ENV['APP_CONFIG_SIDE_URL'].$_ENV['APP_CONFIG_SIDE'].'/Modules';
 
  function include_Dir($x)
  {
@@ -28,41 +28,44 @@ namespace Library;
      protected static $httpRequest;
      protected static $httpResponse;
      protected static $name;
-     public static $url="http://test/";
+     public static $url;
      protected static $out_put='f';
      private static $router;
      private static $app;
      private static $user;
      public static $device;
-     private static $manager;
+     private static $DatabaseManagers;
+     private static $manager=array();
      private static $config;
      protected static $outPut;
      protected static $path=0;
 
-     public function __construct()
+     public function __construct(\DatabaseManagers_space\DatabaseManagers $app)
      {
-        // switch ($_ENV['APP_HOST_RUN']) {
-        //   case 'localhost':
-        //       switch ($_ENV['APP_LOCALHOST_DEVICE']) {
-        //         case 'computer':
-        //             self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
-        //           break;
-        //         case 'mobile':
-        //             self::$url = $_ENV['APP_LOCALHOST_MOBILE'];
-        //           break;
-        //         default:
-        //           self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
-        //           break;
-        //       }
-        //     break;
-        //  case 'server':
-        //      self::$url = $_ENV['APP_SERVER_URL'];
-        //    break;
-        //   default:
-        //     self::$url = $_ENV['APP_SERVER_URL'];
-        //     break;
-        // }
+        switch ($_ENV['APP_HOST_RUN']) {
+          case 'localhost':
+              switch ($_ENV['APP_LOCALHOST_DEVICE']) {
+                case 'computer':
+                    self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
+                  break;
+                case 'mobile':
+                    self::$url = $_ENV['APP_LOCALHOST_MOBILE'];
+                  break;
+                default:
+                  self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
+                  break;
+              }
+            break;
+         case 'server':
+             self::$url = $_ENV['APP_SERVER_URL'];
+           break;
+          default:
+            self::$url = $_ENV['APP_SERVER_URL'];
+            break;
+        }
 
+
+         self::$DatabaseManagers=$app;
          self::$name=' ';
          self::$app=$this;
          self::$device=new \Library\DeviceDetector();
@@ -72,7 +75,13 @@ namespace Library;
          self::$config=new \Library\Config\Config($this);
          self::$httpResponse=new http\HTTPResponse($this);
          self::$router=new \Library\Router\Router(self::$app);
-         self::$manager = new \Library\Manager\Managers('PDO', \Library\PDOFactory::GET_MYSQL_CONNECTION());
+
+
+
+
+         foreach ($app::MANAGER() as $key) {
+           self::$manager[$key] = new \DatabaseManagers_space\Manager\Managers($_ENV['APP_DB_CONNECTION_API'], \DatabaseManagers_space\PDOFactory::GET_MYSQL_CONNECTION())::GET_MANAGER_OF($key);
+         }
      }
      protected static function ADD_ROUTE(PATH_ $route)
      {
@@ -85,7 +94,7 @@ namespace Library;
      {
 
 
-         $routes=simplexml_load_file(__DIR__.'/../../../../../App/bin/'.self::NAME().'/Config/siteMap.xml')->route;
+         $routes=simplexml_load_file(__DIR__.'/../../../../../'.$_ENV['APP_CONFIG_SIDE_URL'].self::NAME().'/Config/siteMap.xml')->route;
          $vars=array();
          $vls=array();
 
@@ -105,7 +114,7 @@ namespace Library;
                  self::$path=$PATH_TMP;
                  break;
              }
-             elseif (self::$manager::GET_MANAGER_OF('Path')::ARTICLE(self::HTTP_REQUEST()::REQUEST_URL())) {
+             elseif (self::$manager['Path']::ARTICLE(self::HTTP_REQUEST()::REQUEST_URL())) {
                  self::$path=new PATH_((string) self::HTTP_REQUEST()::REQUEST_URL(), "Article", "View", $vars, $vls, "");
                   break;
              }
@@ -134,7 +143,7 @@ namespace Library;
      public static function CURRENTLY_USER()
      {
          if (self::$user::IS_AUTH() && self::$user::HAS_FLASH()) {
-             $manager0=self::$manager::GET_MANAGER_OF("User");
+             $manager0=self::$manager['User'];
              return new \Library\Details\UserDetails($manager0::UNIQ_(self::$user::GET_FLASH()));
          } else {
              return false;
@@ -152,6 +161,11 @@ namespace Library;
      public static function NAME()
      {
          return self::$name;
+     }
+
+     public static function MANAGER()
+     {
+         return self::$manager;
      }
      public static function USER()
      {

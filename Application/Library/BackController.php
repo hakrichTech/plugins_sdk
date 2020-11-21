@@ -15,15 +15,11 @@ abstract class BackController extends b
   protected static $module = '';
   protected static $page = null;
   protected static $view = '';
-  protected static $Keywords = 'hakrichapp, Hakrich, programmers, Developer, Technology';
+  protected static $Keywords = $_ENV['APP_HEADER_KEYWORDS'];
   protected static $appCont;
-  protected static $headerImageType="image/jpeg";
-  protected static $headerImage="https://www.hakrichapp.tech/hakrich-team.jpg";
-  protected static $description="
-  <sp>Hakrich Application Manager:</sp>
-   Discorver what is in mind of upcoming developers and software
-   engineers by their product whether in Software Design, Development, Research, etc.
-  ";
+  protected static $headerImageType=$_ENV['APP_HEADER_IMAGE_TYPE'];
+  protected static $headerImage=$_ENV['APP_HEADER_IMAGE'];
+  protected static $description=$_ENV['APP_HEADER_DESCRIPTION'];
   function __construct(app $app, $module, $action)
   {
     parent::__construct($app);
@@ -148,99 +144,17 @@ abstract class BackController extends b
    }
  }
 
- protected static function GENERATED_NEWS($data,$fun)
- {
-   $html=' ';
-
-   while ($dataArray=$data->fetch()) {
-     $method=strtoupper(self::$app::$device::TYPE()).$fun;
-     $html.=HT\Home::$method(self::NEWS_DETAIL($dataArray));
-   }
-
-   return $html;
- }
-
- protected static function NEWS_DETAIL($data)
- {
-   if ($data) {
-     return new DataAnalyse\PostDetails($data, self::$managers_list);
-   }
-   else {
-     return false;
-   }
- }
-
- protected static function SOFT_DETAIL($data)
- {
-   if ($data) {
-     return new DataAnalyse\Software($data, self::$managers_list);
-   }
-   else {
-     return false;
-   }
- }
-
- protected static function GENERATED_APPS($data,$fun)
- {
-   $html='';
-   while ($dataArray=$data->fetch()) {
-     $method=strtoupper(self::$app::$device::TYPE()).$fun;
-     $html.=HT\Home::$method(self::SOFT_DETAIL($dataArray));
-   }
-   if ($html=='' && $fun=="_APP") {
-     $html=<<<END
-
-     <div class="notFOUND">
-       Sorry!! No apps found for this category in our server.
-     </div>
-
-     END;
-   }
 
 
-   return $html;
- }
-
- public static function TOP_APPLICTION()
- {
-   self::$page::ADD_VAR('top_apps',self::GENERATED_APPS(self::$software_Manager::TOP_SOFT(),"_TOP_APP"));
-
- }
-
- protected static function HOME_APPLICATION()
- {
-
-   self::$page::ADD_VAR('home_apps',self::GENERATED_APPS(self::$software_Manager::HOME_APPS(),"_HOME_APP"));
-
- }
-
- protected static function APPLICATION_LIST($app=" ", $data=" ")
- {
-     switch ($app) {
-       case 'new':
-         self::$page::ADD_VAR('appss',self::GENERATED_APPS(self::$software_Manager::HOME_APPS(),"_APP"));
-         break;
-       case 'categ':
-       // self::$page::ADD_VAR('appss',$data);
-         self::$page::ADD_VAR('appss',self::GENERATED_APPS(self::$software_Manager::CATEG(12,$data),"_APP"));
-         break;
-
-       default:
-         self::$page::ADD_VAR('appss',self::GENERATED_APPS(self::$software_Manager::TOP_SOFT(12),"_APP"));
-         break;
-     }
 
 
- }
 
 
- public static function HOME_NEWS()
- {
 
-   self::$page::ADD_VAR('article_suggest',self::GENERATED_NEWS(self::$news_Manager::NEWS_HOME(),"_ARTICLES_SUGGEST"));
-   self::$page::ADD_VAR('article_top',self::GENERATED_NEWS(self::$news_Manager::NEWS_HOME_SUGGEST(),"_ARTICLES_TOP"));
 
- }
+
+
+
 
 
 }
