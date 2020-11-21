@@ -10,7 +10,7 @@ class PDOFactory
    public static function GET_MYSQL_CONNECTION()
    {
      try {
-       $db = new \PDO('mysql:host=localhost;dbname='.$_ENV['APP_DB_NAME'],$_ENV['APP_DB_USER'],$_ENV['APP_DB_PASSWORD']);
+       $db = new \PDO('mysql:host=localhost;dbname=hakrich','root','');
        $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
        return $db;
      } catch (\Exception $e) {

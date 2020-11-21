@@ -8,7 +8,7 @@ namespace Library;
  use \Library\HTTP as http;
  use \Library\Router\Route as PATH_;
 
- $dir    = __DIR__.'/../../../../../'.$_ENV['APP_CONFIG_SIDE_URL'].$_ENV['APP_CONFIG_SIDE'].'/Modules';
+ $dir    = __DIR__.'/../../../../../App/bin/User/Modules';
 
  function include_Dir($x)
  {
@@ -28,7 +28,7 @@ namespace Library;
      protected static $httpRequest;
      protected static $httpResponse;
      protected static $name;
-     public static $url;
+     public static $url="http://test/";
      protected static $out_put='f';
      private static $router;
      private static $app;
@@ -41,31 +41,31 @@ namespace Library;
 
      public function __construct()
      {
-        switch ($_ENV['APP_HOST_RUN']) {
-          case 'localhost':
-              switch ($_ENV['APP_LOCALHOST_DEVICE']) {
-                case 'computer':
-                    self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
-                  break;
-                case 'mobile':
-                    self::$url = $_ENV['APP_LOCALHOST_MOBILE'];
-                  break;
-                default:
-                  self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
-                  break;
-              }
-            break;
-         case 'server':
-             self::$url = $_ENV['APP_SERVER_URL'];
-           break;
-          default:
-            self::$url = $_ENV['APP_SERVER_URL'];
-            break;
-        }
+        // switch ($_ENV['APP_HOST_RUN']) {
+        //   case 'localhost':
+        //       switch ($_ENV['APP_LOCALHOST_DEVICE']) {
+        //         case 'computer':
+        //             self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
+        //           break;
+        //         case 'mobile':
+        //             self::$url = $_ENV['APP_LOCALHOST_MOBILE'];
+        //           break;
+        //         default:
+        //           self::$url = $_ENV['APP_LOCALHOST_COMPUTER'];
+        //           break;
+        //       }
+        //     break;
+        //  case 'server':
+        //      self::$url = $_ENV['APP_SERVER_URL'];
+        //    break;
+        //   default:
+        //     self::$url = $_ENV['APP_SERVER_URL'];
+        //     break;
+        // }
 
          self::$name=' ';
          self::$app=$this;
-         self::$device=new \DeviceDetector();
+         self::$device=new \Library\DeviceDetector();
          self::$user=new \Library\User\User($this);
          self::$httpRequest=new http\HTTPRequest($this);
          self::$outPut=new \Library\OutPut($this);
@@ -85,7 +85,7 @@ namespace Library;
      {
 
 
-         $routes=simplexml_load_file(__DIR__.'/../../../../../../'.$_ENV['APP_CONFIG_SIDE_URL'].self::NAME().'/Config/siteMap.xml')->route;
+         $routes=simplexml_load_file(__DIR__.'/../../../../../App/bin/'.self::NAME().'/Config/siteMap.xml')->route;
          $vars=array();
          $vls=array();
 

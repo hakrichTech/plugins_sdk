@@ -92,7 +92,7 @@ abstract class BackController extends b
       throw new \InvalidArgumentException('Le view doit être une chaine de caractères valide');
     }
     self::$view=$view;
-    $viewDir=__DIR__.'/../../../../../../Views/'.self::$app::NAME().'/'.self::$module;
+    $viewDir=__DIR__.'/../../../../../Views/'.self::$app::NAME().'/'.self::$module;
     if (is_dir($viewDir)) {
       fopen($viewDir.'/'.ucfirst(self::$view).'.php',"a+");
       self::$page::SET_CONTENT_FILE($viewDir.'/'.ucfirst(self::$view).'.php');
@@ -101,7 +101,7 @@ abstract class BackController extends b
       mkdir($viewDir,"7644");
       fopen($viewDir.'/'.ucfirst(self::$view).'.php',"a+");
       self::$page::SET_CONTENT_FILE($viewDir.'/'.ucfirst(self::$view).'.php');
-  
+
     }
   }
  protected static function HEADER()
