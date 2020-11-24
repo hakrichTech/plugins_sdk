@@ -9,10 +9,10 @@ use \Library\Application as App;
 class Setup extends App
 {
 
-  function __construct($side)
+  function __construct($side,$app)
   {
     $_ENV['APP_CONFIG_SIDE']=$side;
-    parent::__construct();
+    parent::__construct($app);
     self::$name = $side;
   }
 

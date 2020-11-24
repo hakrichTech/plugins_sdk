@@ -64,7 +64,6 @@ namespace Library;
             break;
         }
 
-
          self::$DatabaseManagers=$app;
          self::$name=' ';
          self::$app=$this;
@@ -80,7 +79,9 @@ namespace Library;
 
 
          foreach ($app::MANAGER() as $key) {
-           self::$manager[$key] = new \DatabaseManagers_space\Manager\Managers($_ENV['APP_DB_CONNECTION_API'], \DatabaseManagers_space\PDOFactory::GET_MYSQL_CONNECTION())::GET_MANAGER_OF($key);
+
+           $manger = new \DatabaseManagers_space\Manager\Managers($_ENV['APP_DB_CONNECTION_API'], \DatabaseManagers_space\PDOFactory::GET_MYSQL_CONNECTION());
+           self::$manager[$key] = $manger::GET_MANAGER_OF($key);
          }
      }
      protected static function ADD_ROUTE(PATH_ $route)

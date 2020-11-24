@@ -14,11 +14,11 @@ abstract class BackController extends b
   protected static $module = '';
   protected static $page = null;
   protected static $view = '';
-  protected static $Keywords = $_ENV['APP_HEADER_KEYWORDS'];
+  protected static $Keywords = "";
   protected static $appCont;
-  protected static $headerImageType=$_ENV['APP_HEADER_IMAGE_TYPE'];
-  protected static $headerImage=$_ENV['APP_HEADER_IMAGE'];
-  protected static $description=$_ENV['APP_HEADER_DESCRIPTION'];
+  protected static $headerImageType= " ";
+  protected static $headerImage="";
+  protected static $description="";
   function __construct(app $app, $module, $action)
   {
     parent::__construct($app);

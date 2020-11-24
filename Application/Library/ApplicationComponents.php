@@ -9,6 +9,7 @@ abstract class ApplicationComponents
    protected static $app;
    protected static $userId='';
    protected static $a;
+   protected static $managers_list;
 
 
 
@@ -16,7 +17,6 @@ abstract class ApplicationComponents
   {
     self::$app=$app;
     self::$a=$this;
-    self::$managers = new \Library\Manager\Managers('PDO',\Library\PDOFactory::GET_MYSQL_CONNECTION());
     self::$managers_list = $app::MANAGER();
   }
 
