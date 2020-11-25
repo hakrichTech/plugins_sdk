@@ -10,7 +10,8 @@
     ],
     "autoload": {
       "psr-4": {
-        "Library\\": "Application/Library"
+        "Library\\": "Application/Library",
+        "HTML\\": "Application/HTML"
       }
     },
     "require": {}

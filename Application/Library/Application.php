@@ -145,7 +145,7 @@ namespace Library;
      {
          if (self::$user::IS_AUTH()){
              $manager0=self::$manager['User'];
-             return new \Library\Details\UserDetails($manager0::UNIQ_(self::$user::GET('iduser'));
+             return new \Library\Details\UserDetails($manager0::UNIQ_(self::$user::GET('iduser')));
          } else {
              return false;
          }
