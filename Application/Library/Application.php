@@ -143,9 +143,9 @@ namespace Library;
 
      public static function CURRENTLY_USER()
      {
-         if (self::$user::IS_AUTH() && self::$user::HAS_FLASH()) {
+         if (self::$user::IS_AUTH()){
              $manager0=self::$manager['User'];
-             return new \Library\Details\UserDetails($manager0::UNIQ_(self::$user::GET_FLASH()));
+             return new \Library\Details\UserDetails($manager0::UNIQ_(self::$user::GET('iduser'));
          } else {
              return false;
          }

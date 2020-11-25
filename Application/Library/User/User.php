@@ -53,7 +53,7 @@ class User extends appComponet
 
  public static function IS_AUTH()
  {
-   return isset($_SESSION['auth']) && $_SESSION['auth']===true;
+   return self::CHECK('auth');
  }
  public static function IS_CEO()
  {

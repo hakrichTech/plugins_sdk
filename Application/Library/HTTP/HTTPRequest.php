@@ -5,16 +5,13 @@ namespace Library\HTTP;
  *
  */
  use \Library\Application as Application;
+ use \Library\Url as URL;
 
-class HTTPRequest
+class HTTPRequest extends URL
 {
-  private static $app;
+
   protected static $req;
 
-public function __construct(Application $app)
-{
-  self::$app=$app;
-}
 public static function COOKIE_DATA($x){return isset($_COOKIE[$x])? $_COOKIE[$x]: null;}
 public static function COOKIE_EXISTS($x){return isset($_COOKIE[$x]);}
 public static function GET_DATA($x){return isset($_GET[$x])? $_GET[$x]: false;}

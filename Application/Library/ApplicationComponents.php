@@ -3,8 +3,8 @@ namespace Library;
 /**
  *
  */
-use \Library\User as U;
-abstract class ApplicationComponents
+ use \Library\Session as U;
+abstract class ApplicationComponents extends U
 {
    protected static $app;
    protected static $userId='';
@@ -15,6 +15,7 @@ abstract class ApplicationComponents
 
   function __construct(Application $app)
   {
+    parent::__construct();
     self::$app=$app;
     self::$a=$this;
     self::$managers_list = $app::MANAGER();

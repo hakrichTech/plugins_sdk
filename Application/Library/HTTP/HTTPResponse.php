@@ -4,20 +4,17 @@ namespace Library\HTTP;
 
 use \Library\Application as app;
 use \Library\Page\Page as page;
-class HTTPResponse
+use \Library\Url as URL;
+
+class HTTPResponse extends URL
 {
     protected static $page;
-    protected static $app;
     protected static $ajax;
 
-    function __construct(app $app)
-    {
-      self::$app = $app;
-    }
+
   public static function ADD_HEADER($header){header($header);}
   public static function REDIRECT($location){
-    header('Location: '.$location);
-    exit;
+    self::REDIR($location);
     }
 
     public static function REDIRECT_401()
