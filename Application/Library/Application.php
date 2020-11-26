@@ -63,7 +63,8 @@ namespace Library;
             self::$url = $_ENV['APP_SERVER_URL'];
             break;
         }
-
+         $addon = new \Trait\TraitManager($_ENV['APP_CONFIG_TRAIT_URL']);
+         $addon::RUN();
          self::$DatabaseManagers=$app;
          self::$name=' ';
          self::$app=$this;
