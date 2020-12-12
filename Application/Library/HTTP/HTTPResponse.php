@@ -20,7 +20,7 @@ class HTTPResponse extends URL
     public static function REDIRECT_401()
        {
          self::$page = new \Library\Page\Page(self::$app);
-         self::$page::SET_CONTENT_FILE(__DIR__.'/../../../../../../Errors/401.php');
+         self::$page::SET_CONTENT_FILE(__DIR__.'/../../../Errors/401.php');
          self::$page::ADD_VAR('title','401 Not Found');
 
          self::ADD_HEADER('HTTP/1.0 401 Not Found');
@@ -32,7 +32,7 @@ class HTTPResponse extends URL
   public static function REDIRECT_404()
      {
        self::$page = new \Library\Page\Page(self::$app);
-       self::$page::SET_CONTENT_FILE(__DIR__.'/../../../../../../Errors/404.php');
+       self::$page::SET_CONTENT_FILE(__DIR__.'/../../../Errors/404.php');
        self::$page::ADD_VAR('title','Page Not Found');
 
        self::ADD_HEADER('HTTP/1.0 404 Not Found');
@@ -43,7 +43,7 @@ class HTTPResponse extends URL
     public static function REDIRECT_405($x)
        {
          self::$page = new \Library\Page\Page(self::$app);
-         self::$page::SET_CONTENT_FILE(__DIR__.'/../../../../../../Errors/405.php');
+         self::$page::SET_CONTENT_FILE(__DIR__.'/../../../Errors/405.php');
          self::$page::ADD_VAR('titles',$x);
          self::$page::ADD_VAR('title','405 Not Found');
 
@@ -54,7 +54,7 @@ class HTTPResponse extends URL
       public static function REDIRECT_406()
          {
            self::$page = new \Library\Page\Page(self::$app);
-           self::$page::SET_CONTENT_FILE(__DIR__.'/../../../../../../Errors/406.html');
+           self::$page::SET_CONTENT_FILE(__DIR__.'/../../../Errors/406.html');
            self::$page::ADD_VAR('title','405 Not Found');
 
            self::ADD_HEADER('HTTP/1.0 404 Not Found');

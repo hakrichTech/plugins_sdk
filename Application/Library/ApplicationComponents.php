@@ -9,7 +9,7 @@ abstract class ApplicationComponents extends U
    protected static $app;
    protected static $userId='';
    protected static $a;
-   protected static $managers_list;
+   public static $managers_list;
 
 
 
@@ -19,6 +19,7 @@ abstract class ApplicationComponents extends U
     self::$app=$app;
     self::$a=$this;
     self::$managers_list = $app::MANAGER();
+    self::$managers_list['url'] = $app::$url;
   }
 
 
