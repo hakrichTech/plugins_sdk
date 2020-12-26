@@ -63,8 +63,7 @@ namespace Library;
             self::$url = $_ENV['APP_SERVER_URL'];
             break;
         }
-         $addon = new \Trait\TraitManager($_ENV['APP_CONFIG_TRAIT_URL']);
-         $addon::RUN();
+
          self::$DatabaseManagers=$app;
          self::$name=' ';
          self::$app=$this;
@@ -81,7 +80,7 @@ namespace Library;
 
          foreach ($app::MANAGER() as $key) {
            $manger = new \DatabaseManagers_space\Manager\Managers($_ENV['APP_DB_CONNECTION_API'], \DatabaseManagers_space\PDOFactory::GET_MYSQL_CONNECTION());
-           
+
            if ($key == "Search") {
              self::$manager[$key] = $manger::GET_MANAGER_OF($key,self::$app::MANAGER());
 

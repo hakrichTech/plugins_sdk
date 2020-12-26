@@ -10,9 +10,9 @@ abstract class Session
 
   function __construct()
   {
-    ini_set('session.gc_maxlifetime', 60 * 60 * 24);
-    ini_set("session.save_handler", "files");
-    ini_set("session.save_path", __DIR__."/../../../../../".$_ENV['APP_CONFIG_SIDE_URL'].$_ENV['APP_CONFIG_SIDE'].$_ENV['APP_CONFIG_SESSION_URL']);
+    // ini_set('session.gc_maxlifetime', 60 * 60 * 24);
+    // ini_set("session.save_handler", "files");
+    // ini_set("session.save_path", __DIR__."/../../../../../".$_ENV['APP_CONFIG_SIDE_URL'].$_ENV['APP_CONFIG_SIDE'].$_ENV['APP_CONFIG_SESSION_URL']);
 
     if(!isset($_SESSION)){
         session_start();
@@ -51,7 +51,7 @@ abstract class Session
   public static function GET($key)
   {
     if (null !== Session::GENERATE_SESSION_KEY($key)) {
-      return Session::GENERATE_SESSION_KEY($key);
+      return $_SESSION[Session::GENERATE_SESSION_KEY($key)];
     }else {
       return false;
     }
