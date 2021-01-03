@@ -121,8 +121,11 @@ namespace Library;
                  self::$path=$PATH_TMP;
                  break;
              }
-             elseif (self::$manager['Path']::ARTICLE(self::HTTP_REQUEST()::REQUEST_URL())) {
-                 self::$path=new PATH_((string) self::HTTP_REQUEST()::REQUEST_URL(), "Article", "View", $vars, $vls, "");
+
+             elseif (self::$manager['Path']::CHECK(self::HTTP_REQUEST()::REQUEST_URL())) {
+                 $dat = self::$manager['Path']::PATH(self::HTTP_REQUEST()::REQUEST_URL());
+
+                 self::$path=new PATH_((string) self::HTTP_REQUEST()::REQUEST_URL(), $dat['module'], $dat['action'], explode(',',$dat['var']), explode(',',$dat['value']), "");
                   break;
              }
          }
