@@ -1,9 +1,9 @@
 <?php
-namespace BogSystemManager;
+namespace BlogSystemManager;
 
 use ObjectAddOn\AddInObject\Object_;
 
-class BogSystemManager extends Object_
+class BlogSystemManager extends Object_
   {
 
     protected static $db;

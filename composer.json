@@ -12,8 +12,7 @@
       "psr-4": {
         "Library\\": "Application/Library",
         "HTML\\": "Application/HTML",
-        "BogSystemManager\\": "src",
-        "BlogCreator\\": "create"
+        "BlogSystemManager\\": "src"
       }
     },
     "require": {}
