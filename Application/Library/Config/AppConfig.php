@@ -1,9 +1,7 @@
 <?php
 namespace Library\Config;
 
-/**
- *
- */
+
 abstract class AppConfig extends \DatabaseManagers_space\PDOFactory
 {
  protected static $host;
@@ -53,7 +51,7 @@ abstract class AppConfig extends \DatabaseManagers_space\PDOFactory
        or die(print_r($dbh->errorInfo(), true));
 
    }
-   catch (PDOException $e) {
+   catch (\PDOException $e) {
        die("DB ERROR: " . $e->getMessage());
    }
  }
@@ -75,13 +73,31 @@ protected static function CREATE_TABLE(array $data)
  }
 
 
+
+ protected static function CREATE_TABLE_HKM(array $data)
+ {
+   foreach ($data as $key => $value) {
+     $sqlQuery = $value;
+     try {
+
+       self::GET_MYSQL_CONNECTION()->exec($sqlQuery);
+     } catch (\PDOException $e) {
+       echo $key.': <br>'.$e->getMessage();
+     }
+  
+
+
+   }
+ }
+
+
  protected static function INSERT_TABLE(array $data)
  {
    foreach ($data as $key => $value) {
       $query = "INSERT INTO $key SET ";
       $query2 = "SELECT COUNT(*) FROM $key WHERE ";
       foreach ($value as $name => $dat) {
-        if ($name == 'path') {
+        if ($name == 'paths') {
         $dt = rtrim($dat,',');
         $query2.=" $name=$dt";
         }
