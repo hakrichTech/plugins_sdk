@@ -1,0 +1,14 @@
+CREATE TABLE `hkm_tag` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(75) NOT NULL,
+  `metaTitle` VARCHAR(100) NULL DEFAULT NULL,
+  `slug` VARCHAR(100) NOT NULL,
+  `content` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `hkm_tag` 
+ADD CONSTRAINT `fk_tag_parent`
+  FOREIGN KEY (`parentId`)
+  REFERENCES `hkm_tag` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
