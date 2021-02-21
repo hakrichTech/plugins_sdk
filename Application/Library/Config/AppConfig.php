@@ -75,6 +75,22 @@ protected static function CREATE_TABLE(array $data)
  }
 
 
+ protected static function CREATE_TABLE_HKM(array $data)
+ {
+   foreach ($data as $key => $value) {
+     $sqlQuery = $value;
+     try {
+
+       self::GET_MYSQL_CONNECTION()->exec($sqlQuery);
+     } catch (\PDOException $e) {
+       echo $key.': <br>'.$e->getMessage();
+     }
+
+
+
+   }
+ }
+
  protected static function INSERT_TABLE(array $data)
  {
    foreach ($data as $key => $value) {
