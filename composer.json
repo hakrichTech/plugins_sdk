@@ -11,8 +11,7 @@
     "autoload": {
       "psr-4": {
         "Library\\": "Application/Library",
-        "HTML\\": "Application/HTML",
-        "BlogSystemManager\\": "src"
+        "HTML\\": "Application/HTML"
       }
     },
     "require": {}
